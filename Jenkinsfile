@@ -14,8 +14,12 @@ pipeline {
         }
         stage('Unit Testing') {
             steps {
-                sh 'pip install -r requirements.txt'
-                sh 'pytest test_app.py'
+                sh '''
+                python3 -m venv venv
+                . venv/bin/activate
+                pip install -r requirements.txt
+                pytest test_app.py
+                '''
             }
         }
         stage('Containerize & Push') {
